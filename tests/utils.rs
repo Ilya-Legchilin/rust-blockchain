@@ -23,3 +23,9 @@ fn test_hash_to_binary_4() {
     let input = &[128];
     assert_eq!(hash_to_binary_representation(input), "10000000");
 }
+
+#[test]
+fn test_mine_block() {
+    let result = mine_block(0, 0, "abc", "def");
+    assert!(result.1.starts_with(DIFFICULTY_PREFIX));
+}

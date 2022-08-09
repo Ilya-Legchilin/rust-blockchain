@@ -1,7 +1,7 @@
 use chrono::Utc;
 use log::warn;
 
-use crate::utils::{hash_to_binary_representation, DIFFICULTY_PREFIX, calculate_hash};
+use crate::utils::{calculate_hash, hash_to_binary_representation, mine_block, DIFFICULTY_PREFIX};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Block {
@@ -55,5 +55,18 @@ impl Block {
             return false;
         }
         true
+    }
+
+    pub fn new(id: u64, previous_hash: String, data: String) -> Self {
+        let now = Utc::now();
+        let (nonce, hash) = mine_block(id, now.timestamp(), &previous_hash, &data);
+        Self {
+            id,
+            hash,
+            timestamp: now.timestamp(),
+            previous_hash,
+            data,
+            nonce,
+        }
     }
 }
