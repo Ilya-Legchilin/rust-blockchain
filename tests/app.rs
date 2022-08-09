@@ -1,5 +1,5 @@
 use chrono::Utc;
-use rust_blockchain::{self, app::App};
+use rust_blockchain::{self, app::App, block::Block, utils::calculate_hash};
 
 #[test]
 fn test_new() {
@@ -22,45 +22,23 @@ fn test_genesis() {
 }
 
 #[test]
-fn test_try_to_add_block_1() {
-
+#[should_panic(expected = "could not add block - invalid")]
+fn test_try_to_add_block() {
+    let mut app = App::new();
+    app.genesis();
+    let id = 1;
+    let previous_hash = "0000f816a87f806bb0073dcf026a64fb40c946b5abee2573702828694d5b4c43".to_string();
+    let data = String::from("first block!");
+    let nonce = 1;
+    let timestamp = 1;
+    let hash = calculate_hash(id, timestamp, previous_hash.as_str(), data.as_str(), nonce);
+    let new_block = Block {
+        id,
+        hash: hex::encode(hash),
+        previous_hash,
+        timestamp,
+        data,
+        nonce,
+    };
+    app.try_add_block(new_block);
 }
-
-#[test]
-fn test_try_to_add_block_2() {
-    
-}
-
-// #[test]
-// #[should_panic("panic message")]
-// fn test_try_to_add_block_3() {
-    
-// }
-
-// #[test]
-// #[should_panic("panic message")]
-// fn test_try_to_add_block_4() {
-
-// }
-
-// #[test]
-// fn test_is_block_valid_1() {
-
-// }
-
-// #[test]
-// fn test_is_block_valid_2() {
-    
-// }
-
-// #[test]
-// #[should_panic("")]
-// fn test_is_block_valid_3() {
-    
-// }
-
-// #[test]
-// #[should_panic("")]
-// fn test_is_block_valid_4() {
-    
-// }

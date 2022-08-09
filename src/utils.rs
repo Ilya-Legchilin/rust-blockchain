@@ -4,7 +4,6 @@ pub const DIFFICULTY_PREFIX: &str = "00";
 pub fn hash_to_binary_representation(hash: &[u8]) -> String {
     let mut res: String = String::default();
     for c in hash {
-        println!("bin for {} is {:b}", c, c);
         res.push_str(&format!("{:b}", c));
     }
     res
