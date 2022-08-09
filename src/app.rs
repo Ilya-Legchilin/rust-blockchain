@@ -1,6 +1,6 @@
 use crate::block::Block;
 
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone,)]
 pub struct App {
     pub blocks: Vec<Block>,
 }

@@ -1,9 +1,10 @@
 use chrono::Utc;
 use log::warn;
+use serde::{Deserialize, Serialize};
 
 use crate::utils::{calculate_hash, hash_to_binary_representation, mine_block, DIFFICULTY_PREFIX};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Block {
     pub id: u64,
     pub hash: String,
